@@ -1,1 +1,348 @@
-file:///C:/Users/Simon/Downloads/mayhem_familie_website.html
+import React from "react";
+
+const RANKS = [
+  { level: "Rang 10", name: "Leader" },
+  { level: "Rang 9", name: "Vize-Leader" },
+  { level: "Rang 8", name: "Organisation" },
+  { level: "Rang 7", name: "Event-Leader" },
+  { level: "Rang 6", name: "Event-Maijnys" },
+  { level: "Rang 5", name: "Treues Stück" },
+  { level: "Rang 4", name: "Dealer" },
+  { level: "Rang 3", name: "Läufer" },
+  { level: "Rang 2", name: "Neuling" },
+  { level: "Rang 1", name: "Suspendiert" },
+];
+
+const FLEET = [
+  { amount: "2x", title: "Bugatti Divo", text: "Exklusiver Hypercar-Status für besondere Auftritte.", number: "01" },
+  { amount: "1x", title: "Bugatti Chiron Super Sport", text: "High-End Prestige.", number: "02" },
+  { amount: "1x", title: "WF-Auto Q8", text: "Luxus-SUV für Convoys.", number: "03" },
+  { amount: "Viele", title: "Sultan's", text: "Alltag & Action.", number: "04" },
+];
+
+const RULES = [
+  "Loyalität vor allem.",
+  "Respekt intern und außen.",
+  "Keine unnötigen Moves ohne Absprache.",
+  "Aktivität und Präsenz werden erwartet.",
+  "Der Name Mayhem wird geschützt.",
+];
+
+const STORY = [
+  "Mayhem ist nicht aus Langeweile entstanden. Am Anfang waren es ein paar Menschen, die zu oft am falschen Ort waren, zu oft alles verloren haben und irgendwann gemerkt haben, dass sie so nicht weitermachen wollen.",
+  "Die heutigen Leader kannten Druck, Schulden und den Blick von Leuten, die dich schon abgeschrieben haben. Aus Frust, Wut und Ehrgeiz wurde irgendwann ein Plan. Kein sauberer Plan, aber einer, der alles verändert hat.",
+  "Nach einem Casino-Überfall war klar, dass aus einzelnen Menschen eine feste Struktur werden muss. Nicht jeder hatte das Zeug dazu, deswegen sind nur die geblieben, die Loyalität wirklich verstanden haben.",
+  "Heute steht Mayhem für Präsenz, Ordnung und Respekt. Wer den Namen trägt, repräsentiert mehr als nur eine Gruppe — er repräsentiert eine Familie, die aus Chaos entstanden ist und daraus Stärke gemacht hat.",
+];
+
+const Clock = React.memo(function Clock() {
+  const [time, setTime] = React.useState("");
+
+  React.useEffect(() => {
+    const update = () => {
+      setTime(
+        new Date().toLocaleTimeString("de-DE", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        })
+      );
+    };
+    update();
+    const i = window.setInterval(update, 1000);
+    return () => window.clearInterval(i);
+  }, []);
+
+  return <span>{time}</span>;
+});
+
+function SectionTitle({ index, title, subtitle }) {
+  return (
+    <div className="mb-10 md:mb-14 animate-section">
+      <div className="text-[11px] uppercase tracking-[0.45em] text-pink-300/80">{index}</div>
+      <h2 className="mt-3 bg-gradient-to-r from-white via-pink-100 to-pink-400 bg-clip-text text-4xl font-black text-transparent md:text-6xl">
+        {title}
+      </h2>
+      <p className="mt-4 max-w-2xl text-base text-pink-50/65 md:text-lg">{subtitle}</p>
+    </div>
+  );
+}
+
+function Card({ children, className = "" }) {
+  return (
+    <div className={`glass-card pink-outline rounded-[1.6rem] border p-5 transition duration-500 hover:-translate-y-1 hover:shadow-[0_0_55px_rgba(255,20,147,0.2)] md:p-7 ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+export default function MayhemFamilieWebsite() {
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-[#07020a] text-white">
+      <style>{`
+        html { scroll-behavior: smooth; }
+
+        @keyframes floatSlow {
+          0%,100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-18px) scale(1.03); }
+        }
+
+        @keyframes drift {
+          0%,100% { transform: translate3d(0,0,0); }
+          50% { transform: translate3d(18px,-24px,0); }
+        }
+
+        @keyframes riseIn {
+          from { opacity: 0; transform: translateY(32px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heroPulse {
+          0%,100% { transform: scale(1); opacity: 0.75; }
+          50% { transform: scale(1.08); opacity: 1; }
+        }
+
+        @keyframes borderShift {
+          0%,100% { box-shadow: 0 0 0 rgba(255,20,147,0.0), 0 0 0 rgba(168,85,247,0.0); }
+          50% { box-shadow: 0 0 35px rgba(255,20,147,0.22), 0 0 55px rgba(168,85,247,0.16); }
+        }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+          0%,100% { box-shadow: 0 0 0 rgba(255,20,147,0.0); }
+          50% { box-shadow: 0 0 40px rgba(255,20,147,0.16); }
+        }
+
+        @keyframes logoEntrance {
+          0% { opacity: 0; transform: scale(0.72) translateY(30px) rotate(-8deg); filter: blur(10px); }
+          60% { opacity: 1; transform: scale(1.06) translateY(-8px) rotate(2deg); filter: blur(0px); }
+          100% { opacity: 1; transform: scale(1) translateY(0px) rotate(0deg); filter: blur(0px); }
+        }
+
+        @keyframes logoHalo {
+          0%,100% { opacity: 0.45; transform: scale(1); }
+          50% { opacity: 0.95; transform: scale(1.08); }
+        }
+
+        @keyframes logoTilt {
+          0%,100% { transform: rotate(0deg) translateY(0px); }
+          25% { transform: rotate(1deg) translateY(-3px); }
+          50% { transform: rotate(0deg) translateY(-6px); }
+          75% { transform: rotate(-1deg) translateY(-3px); }
+        }
+
+        .animate-float { animation: floatSlow 8s ease-in-out infinite; }
+        .animate-drift { animation: drift 12s ease-in-out infinite; }
+        .animate-section { animation: riseIn .85s ease-out both; }
+        .animate-logo-in { animation: logoEntrance 1.2s cubic-bezier(.2,.8,.2,1) both; }
+        .animate-logo-halo { animation: logoHalo 4s ease-in-out infinite; }
+        .animate-logo-tilt { animation: logoTilt 4.5s ease-in-out infinite; }
+        .animate-hero-pulse { animation: heroPulse 2.8s ease-in-out infinite; }
+        .animate-border-shift { animation: borderShift 3.2s ease-in-out infinite; }
+
+        .glass-card {
+          background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+          backdrop-filter: blur(16px);
+          border-color: rgba(255, 105, 180, 0.18);
+        }
+
+        .pink-outline {
+          border-color: rgba(255, 90, 180, 0.28);
+        }
+
+        .pink-outline:hover {
+          border-color: rgba(255, 120, 210, 0.9);
+          animation: pulseGlow 2.4s ease-in-out infinite;
+        }
+
+        .hero-structure {
+          background:
+            radial-gradient(circle at 20% 20%, rgba(255, 60, 170, 0.30), transparent 0 22%),
+            radial-gradient(circle at 80% 16%, rgba(180, 80, 255, 0.20), transparent 0 18%),
+            radial-gradient(circle at 50% 78%, rgba(255, 180, 220, 0.10), transparent 0 20%),
+            linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+            linear-gradient(135deg, #120312 0%, #0a0210 46%, #120019 100%);
+        }
+
+        .history-structure {
+          background:
+            radial-gradient(circle at top left, rgba(255, 0, 128, 0.14), transparent 0 24%),
+            repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 48px),
+            linear-gradient(180deg, #0b0210 0%, #120317 100%);
+        }
+
+        .hierarchy-structure {
+          background:
+            radial-gradient(circle at right top, rgba(255, 20, 147, 0.12), transparent 0 25%),
+            linear-gradient(180deg, rgba(255,255,255,0.02), transparent 60%),
+            linear-gradient(135deg, #09020d 0%, #130113 100%);
+        }
+
+        .fleet-structure {
+          background:
+            radial-gradient(circle at 12% 50%, rgba(255, 0, 170, 0.12), transparent 0 22%),
+            radial-gradient(circle at 88% 25%, rgba(210, 80, 255, 0.13), transparent 0 18%),
+            linear-gradient(180deg, #07020a 0%, #120111 100%);
+        }
+
+        .rules-structure {
+          background:
+            radial-gradient(circle at center, rgba(255, 70, 180, 0.10), transparent 0 18%),
+            repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 46px),
+            linear-gradient(180deg, #0a020d 0%, #15031a 100%);
+        }
+
+        .footer-structure {
+          background:
+            radial-gradient(circle at center, rgba(255, 0, 144, 0.12), transparent 0 24%),
+            linear-gradient(180deg, #090109 0%, #130213 100%);
+        }
+      `}</style>
+
+      <section className="hero-structure relative flex min-h-screen flex-col overflow-hidden border-x border-pink-300/10">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="animate-drift absolute left-[-10%] top-[10%] h-72 w-72 rounded-full bg-pink-500/30 blur-3xl md:h-[28rem] md:w-[28rem]" />
+          <div className="animate-drift absolute right-[-6%] top-[22%] h-64 w-64 rounded-full bg-fuchsia-400/25 blur-3xl md:h-[24rem] md:w-[24rem]" style={{ animationDelay: "-3s" }} />
+          <div className="animate-drift absolute bottom-[-8%] left-[28%] h-64 w-64 rounded-full bg-purple-500/20 blur-3xl md:h-[22rem] md:w-[22rem]" style={{ animationDelay: "-6s" }} />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:56px_56px] opacity-[0.12]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.42)_100%)]" />
+        </div>
+
+        <div className="relative z-10 flex items-center justify-end px-6 py-5 text-sm tracking-[0.25em] text-pink-50/75 md:px-10">
+          <Clock />
+        </div>
+
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center px-6 text-center">
+          <div className="animate-section text-[11px] uppercase tracking-[0.5em] text-pink-200/75">Est. 2024 | Family</div>
+
+          <div className="mt-8 animate-float">
+            <div className="relative mx-auto max-w-fit animate-logo-in">
+              <div className="animate-logo-halo absolute inset-[-18px] rounded-[2rem] bg-pink-500/20 blur-2xl" />
+              <Card className="animate-border-shift relative mx-auto max-w-fit p-4 md:p-5">
+                <div className="absolute inset-0 rounded-[1.5rem] bg-gradient-to-br from-pink-300/10 via-transparent to-fuchsia-400/10" />
+                <img
+                  src="/mnt/data/386439cf-6bfa-4f44-a137-95c23ddedb83.png"
+                  alt="Mayhem Logo"
+                  className="animate-logo-tilt animate-hero-pulse relative z-10 mx-auto h-52 w-52 rounded-[1.2rem] object-contain md:h-72 md:w-72 drop-shadow-[0_0_60px_rgba(255,20,147,0.85)]"
+                />
+              </Card>
+            </div>
+          </div>
+
+          <div className="mt-10 animate-section" style={{ animationDelay: "0.1s" }}>
+            <h1 className="bg-gradient-to-b from-white via-pink-100 to-pink-400 bg-clip-text text-6xl font-black text-transparent md:text-[120px]">
+              MAYHEM
+            </h1>
+            <div className="mt-2 text-4xl italic text-pink-50/92 md:text-6xl">Familie</div>
+            <p className="mt-5 text-lg font-medium text-pink-300 md:text-2xl">Loyalität. Respekt. Macht.</p>
+          </div>
+
+          <div className="mt-12 grid w-full max-w-4xl grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+            {[
+              ["10", "Ränge"],
+              ["10+", "Fahrzeuge"],
+              ["14-20", "Mitglieder"],
+              ["100%", "Loyalität"],
+            ].map(([value, label]) => (
+              <Card key={label} className="animate-section animate-border-shift text-center">
+                <div className="text-3xl font-black text-pink-100 md:text-5xl">{value}</div>
+                <div className="mt-2 text-[11px] uppercase tracking-[0.32em] text-pink-100/55">{label}</div>
+              </Card>
+            ))}
+          </div>
+
+          <a href="#geschichte" className="mt-12 inline-flex items-center gap-3 rounded-full border border-pink-300/30 bg-pink-400/10 px-5 py-3 text-sm uppercase tracking-[0.4em] text-pink-100 transition duration-300 hover:border-pink-300 hover:bg-pink-400/15 hover:shadow-[0_0_35px_rgba(255,20,147,0.16)]">
+            Scroll
+            <span className="text-base tracking-normal">⌄</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="geschichte" className="history-structure relative overflow-hidden px-6 py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(255,0,140,0.10),transparent_24%)]" />
+        <div className="relative mx-auto max-w-5xl">
+          <SectionTitle index="01" title="Geschichte" subtitle="Wie alles angefangen hat." />
+          <Card className="animate-section animate-border-shift leading-8 text-pink-50/80">
+            {STORY.map((paragraph) => (
+              <p key={paragraph} className="mb-5 last:mb-0">
+                {paragraph}
+              </p>
+            ))}
+          </Card>
+        </div>
+      </section>
+
+      <section id="hierarchie" className="hierarchy-structure relative overflow-hidden px-6 py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle index="02" title="Hierarchie" subtitle="Struktur der Familie." />
+          <div className="space-y-3">
+            {RANKS.map((r) => (
+              <Card key={r.level} className="animate-section animate-border-shift">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="text-sm uppercase tracking-[0.22em] text-pink-200/65">{r.level}</div>
+                  <div className="h-px flex-1 bg-gradient-to-r from-pink-300/20 via-pink-100/15 to-transparent" />
+                  <div className="text-xl font-semibold text-pink-50 md:text-2xl">{r.name}</div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="fuhrpark" className="fleet-structure relative overflow-hidden px-6 py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle index="03" title="Fuhrpark" subtitle="Unsere Fahrzeuge." />
+          <div className="grid gap-4 md:grid-cols-2">
+            {FLEET.map((c) => (
+              <Card key={c.number} className="animate-section animate-border-shift relative overflow-hidden">
+                <div className="absolute right-5 top-2 text-[70px] font-black leading-none text-pink-100/[0.06] md:text-[96px]">
+                  {c.number}
+                </div>
+                <div className="inline-flex rounded-full border border-pink-300/30 bg-pink-400/10 px-3 py-1 text-xs uppercase tracking-[0.25em] text-pink-100/85">
+                  {c.amount}
+                </div>
+                <h3 className="mt-6 text-2xl font-bold text-pink-50 md:text-3xl">{c.title}</h3>
+                <p className="mt-3 text-pink-50/60">{c.text}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="regeln" className="rules-structure relative overflow-hidden px-6 py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle index="04" title="Regeln" subtitle="Die Grundsätze der Familie." />
+          <div className="space-y-3">
+            {RULES.map((r, i) => (
+              <Card key={r} className="animate-section animate-border-shift">
+                <div className="flex items-center gap-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-pink-300/30 bg-pink-500/10 text-sm font-semibold text-pink-100">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className="text-lg font-medium text-pink-50/85 md:text-2xl">{r}</div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="footer-structure relative border-t border-pink-300/10 px-6 py-12 text-sm">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="bg-gradient-to-r from-white via-pink-100 to-pink-400 bg-clip-text text-3xl font-black text-transparent md:text-5xl">
+              MAYHEM
+            </div>
+            <div className="mt-2 text-xl italic text-pink-50/90">Familie</div>
+          </div>
+          <div className="space-y-2 text-right uppercase tracking-[0.2em] text-pink-100/65">
+            <div>DC: <span className="text-pink-50">paul.999</span></div>
+            <div>IC Name &amp; ID: <span className="text-pink-50">Paul Armani 118635</span></div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
