@@ -13,17 +13,40 @@ body {
   background: linear-gradient(135deg,#0a0010,#1a0020);
 }
 
-.logo {
-  width:220px;
-  margin:30px auto 10px;
+.neon-logo {
+  width:240px;
   display:block;
-  filter: drop-shadow(0 0 25px rgba(255,20,147,0.6));
-  animation: float 4s ease-in-out infinite;
+  margin:30px auto;
+  animation: float 4s ease-in-out infinite, neonFlicker 3s infinite;
+  filter:
+    drop-shadow(0 0 5px #ff00aa)
+    drop-shadow(0 0 15px #ff00aa)
+    drop-shadow(0 0 30px #ff00aa)
+    drop-shadow(0 0 60px #ff00aa);
+  transition:0.3s;
+}
+
+.neon-logo:hover {
+  transform: scale(1.08);
+  filter:
+    drop-shadow(0 0 10px #ff00aa)
+    drop-shadow(0 0 30px #ff00aa)
+    drop-shadow(0 0 80px #ff00aa)
+    drop-shadow(0 0 120px #ff00aa);
 }
 
 @keyframes float {
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-12px)}
+}
+
+@keyframes neonFlicker {
+  0%,18%,22%,25%,53%,57%,100% {
+    opacity:1;
+  }
+  20%,24%,55% {
+    opacity:0.6;
+  }
 }
 
 h1{
@@ -89,7 +112,7 @@ footer{
 
 <body>
 
-<img src="mayhem-logo.png" class="logo">
+<img src="./mayhem-logo.png?v=3" class="neon-logo">
 <h1>MAYHEM</h1>
 <h2>Familie</h2>
 
@@ -142,4 +165,3 @@ DC: paul.999
 
 </body>
 </html>
-
