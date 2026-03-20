@@ -30,8 +30,10 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
     .hero {
@@ -48,7 +50,7 @@
     .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(60px);
+      filter: blur(65px);
       animation: float 10s ease-in-out infinite;
       z-index: 0;
     }
@@ -64,7 +66,7 @@
     .orb.two {
       width: 240px;
       height: 240px;
-      background: rgba(168, 85, 247, 0.2);
+      background: rgba(168, 85, 247, 0.22);
       top: 20%;
       right: -60px;
       animation-delay: -3s;
@@ -84,9 +86,19 @@
       50% { transform: translateY(-25px); }
     }
 
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-10px) scale(1.03); }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.9s ease-out both;
     }
 
     .hero-inner {
@@ -104,24 +116,6 @@
       letter-spacing: 0.2em;
       color: rgba(255,255,255,0.8);
       z-index: 3;
-    }
-
-    .logo-wrap {
-      display: inline-block;
-      padding: 14px;
-      border-radius: 28px;
-      border: 1px solid rgba(255, 105, 180, 0.35);
-      background: rgba(255,255,255,0.05);
-      box-shadow: 0 0 45px rgba(255, 20, 147, 0.2);
-      animation: logoFloat 5s ease-in-out infinite;
-      margin-bottom: 25px;
-    }
-
-    .logo {
-      width: 220px;
-      max-width: 70vw;
-      border-radius: 18px;
-      display: block;
     }
 
     h1 {
@@ -229,7 +223,7 @@
     }
 
     .story-box p {
-      line-height: 1.8;
+      line-height: 1.85;
       color: rgba(255,255,255,0.82);
       margin: 0 0 18px;
     }
@@ -258,6 +252,62 @@
       font-size: 24px;
       font-weight: 700;
       color: #fff1fa;
+    }
+
+    .rank-card p {
+      margin: 12px 0 0;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.8;
+    }
+
+    .rank-card strong {
+      color: #ffd8ef;
+    }
+
+    .fleet-hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      min-height: 420px;
+      display: flex;
+      align-items: end;
+      padding: 30px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255, 120, 210, 0.28);
+      box-shadow: 0 0 45px rgba(255, 20, 147, 0.14);
+      background:
+        linear-gradient(to top, rgba(5, 0, 10, 0.92) 0%, rgba(5, 0, 10, 0.65) 35%, rgba(5, 0, 10, 0.18) 100%),
+        url('./cars.png') center/cover no-repeat;
+    }
+
+    .fleet-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 20, 147, 0.14), transparent 40%, rgba(168, 85, 247, 0.12));
+      pointer-events: none;
+    }
+
+    .fleet-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .fleet-hero-title {
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 900;
+      line-height: 1.05;
+      margin: 0;
+      color: #fff5fb;
+    }
+
+    .fleet-hero-text {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.75;
+      font-size: 17px;
     }
 
     .fleet-grid {
@@ -373,6 +423,10 @@
       .rule-text {
         font-size: 20px;
       }
+
+      .fleet-hero {
+        min-height: 320px;
+      }
     }
 
     @media (max-width: 640px) {
@@ -388,10 +442,6 @@
       .footer-brand {
         font-size: 34px;
       }
-
-      .logo {
-        width: 180px;
-      }
     }
   </style>
 </head>
@@ -403,13 +453,9 @@
     <div class="orb two"></div>
     <div class="orb three"></div>
 
-    <div class="hero-inner">
+    <div class="hero-inner fade-up">
       <div style="font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:rgba(255,200,230,0.75); margin-bottom:18px;">
         Est. 2024 | Family
-      </div>
-
-      <div class="logo-wrap">
-        <img class="logo" src="https://i.imgur.com/8E6weEh.jpg" alt="Mayhem Logo">
       </div>
 
       <h1>MAYHEM</h1>
@@ -457,38 +503,159 @@
     </div>
   </section>
 
-  <section class="section" style="background:
+  <section class="section" style="
+    background:
     radial-gradient(circle at right top, rgba(255, 20, 147, 0.12), transparent 25%),
     linear-gradient(180deg, rgba(255,255,255,0.02), transparent 60%),
-    linear-gradient(135deg, #09020d 0%, #130113 100%);">
+    linear-gradient(135deg, #09020d 0%, #130113 100%);
+  ">
     <div class="container">
       <div class="section-title-top">02</div>
       <h2>Hierarchie</h2>
-      <p class="lead">Struktur der Familie.</p>
+      <p class="lead">Struktur und Aufgabenbereiche der Familie.</p>
 
       <div class="list">
-        <div class="card row"><div class="left">Rang 10</div><div class="right">Leader</div></div>
-        <div class="card row"><div class="left">Rang 9</div><div class="right">Vize-Leader</div></div>
-        <div class="card row"><div class="left">Rang 8</div><div class="right">Organisation</div></div>
-        <div class="card row"><div class="left">Rang 7</div><div class="right">Event-Leader</div></div>
-        <div class="card row"><div class="left">Rang 6</div><div class="right">Event-Maijnys</div></div>
-        <div class="card row"><div class="left">Rang 5</div><div class="right">Treues Stück</div></div>
-        <div class="card row"><div class="left">Rang 4</div><div class="right">Dealer</div></div>
-        <div class="card row"><div class="left">Rang 3</div><div class="right">Läufer</div></div>
-        <div class="card row"><div class="left">Rang 2</div><div class="right">Neuling</div></div>
-        <div class="card row"><div class="left">Rang 1</div><div class="right">Suspendiert</div></div>
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 9</div>
+            <div class="right">President of MAYHEM</div>
+          </div>
+          <p><strong>Ist der Familien Besitzer</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>Alles</p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 9</div>
+            <div class="right">High Councillor</div>
+          </div>
+          <p><strong>Sind die Vize der Familie</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>Alles</p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 8</div>
+            <div class="right">Executor</div>
+          </div>
+          <p><strong>Sind zur Unterstützung der Leader da, ist Teil der Familienführung.</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>
+            Organisation der Familie<br>
+            Anwesenheit bei Events<br>
+            Teilnahme der Führungsbesprechungen
+          </p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 7</div>
+            <div class="right">Mentor</div>
+          </div>
+          <p><strong>Ist Teil der Familienführung, kümmert sich um die Ausbildung der Mitglieder.</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>
+            Aufnahme der Neulinge<br>
+            Vergrößern der Familie<br>
+            Erster Ansprechpartner der Mitglieder
+          </p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 6</div>
+            <div class="right">Turf Leader</div>
+          </div>
+          <p><strong>Ist Main Caller bei Events und für die Turfs zuständig.</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>
+            Events anfahren<br>
+            Callen<br>
+            Einflussphären<br>
+            kümmern um Turfer
+          </p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 5</div>
+            <div class="right">Buisnessman</div>
+          </div>
+          <p><strong>Ist für das verteilen der Munition da.</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>
+            Waffen &amp; Munition verteilen<br>
+            Einsammeln der Unternehmen<br>
+            Verwaltung des Geldes
+          </p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 4</div>
+            <div class="right">Turfer</div>
+          </div>
+          <p><strong>Ist für die Events zuständig.</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>
+            Events anfahren (pflicht)<br>
+            Einfluss verteidigen und angreifen
+          </p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 3</div>
+            <div class="right">Mayhem</div>
+          </div>
+          <p><strong>Ist ein vollständiges Mitglied der Familie.</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>
+            Anfahren der Events<br>
+            Pflicht Events<br>
+            Teilnahme der Familienaktivitäten
+          </p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 2</div>
+            <div class="right">Warrior</div>
+          </div>
+          <p><strong>Ist ein neues unerfahrenes Mitglied der Familie.</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>
+            kennenlernen der Familie
+          </p>
+        </div>
+
+        <div class="card rank-card">
+          <div class="row">
+            <div class="left">Rang 1</div>
+            <div class="right">Putzfrau</div>
+          </div>
+          <p><strong>Ist der Strafrang</strong></p>
+          <p><strong>Aufgabenbereich:</strong><br>
+            Sanktion bezahlen
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section" style="background:
+  <section class="section" style="
+    background:
     radial-gradient(circle at 12% 50%, rgba(255, 0, 170, 0.12), transparent 22%),
     radial-gradient(circle at 88% 25%, rgba(210, 80, 255, 0.13), transparent 18%),
-    linear-gradient(180deg, #07020a 0%, #120111 100%);">
+    linear-gradient(180deg, #07020a 0%, #120111 100%);
+  ">
     <div class="container">
       <div class="section-title-top">03</div>
       <h2>Fuhrpark</h2>
-      <p class="lead">Unsere Fahrzeuge.</p>
+      <p class="lead">Unsere Fahrzeuge und unser Auftreten auf der Straße.</p>
+
+      <div class="fleet-hero">
+        <div class="fleet-hero-content">
+          <h3 class="fleet-hero-title">Luxus. Präsenz. Mayhem.</h3>
+          <p class="fleet-hero-text">
+            Unser Fuhrpark steht nicht nur für Geschwindigkeit, sondern auch für Wiedererkennung.
+            Weiße Karossen, pinke Akzente und ein Auftritt, den man direkt mit Mayhem verbindet.
+          </p>
+        </div>
+      </div>
 
       <div class="fleet-grid">
         <div class="card fleet-card">
@@ -513,16 +680,18 @@
           <div class="fleet-number">04</div>
           <div class="badge">Viele</div>
           <h3>Sultan’s</h3>
-          <p>Alltag & Action.</p>
+          <p>Alltag &amp; Action.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" style="background:
+  <section class="section" style="
+    background:
     radial-gradient(circle at center, rgba(255, 70, 180, 0.10), transparent 18%),
     repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 46px),
-    linear-gradient(180deg, #0a020d 0%, #15031a 100%);">
+    linear-gradient(180deg, #0a020d 0%, #15031a 100%);
+  ">
     <div class="container">
       <div class="section-title-top">04</div>
       <h2>Regeln</h2>
@@ -546,8 +715,10 @@
       </div>
 
       <div class="footer-right">
+        <div>Leader: <span style="color:#fff;">Paul Armani</span></div>
+        <div>1. Vize: <span style="color:#fff;">Merlin Daumendrücker ID 83124</span></div>
+        <div>2. Vize: <span style="color:#fff;">Kiro Sencho ID 140238</span></div>
         <div>DC: <span style="color:#fff;">paul.999</span></div>
-        <div>IC Name &amp; ID: <span style="color:#fff;">Paul Armani 118635</span></div>
       </div>
     </div>
   </footer>
