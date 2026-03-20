@@ -1,740 +1,145 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mayhem Familie</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mayhem Familie</title>
 
-    html {
-      scroll-behavior: smooth;
-    }
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  color:white;
+  background: linear-gradient(135deg,#0a0010,#1a0020);
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255, 60, 170, 0.28), transparent 22%),
-        radial-gradient(circle at 80% 16%, rgba(180, 80, 255, 0.18), transparent 18%),
-        linear-gradient(135deg, #120312 0%, #0a0210 46%, #120019 100%);
-      overflow-x: hidden;
-    }
+.logo {
+  width:220px;
+  margin:30px auto 10px;
+  display:block;
+  filter: drop-shadow(0 0 25px rgba(255,20,147,0.6));
+  animation: float 4s ease-in-out infinite;
+}
 
-    .section {
-      padding: 90px 20px;
-      position: relative;
-    }
+@keyframes float {
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
 
-    .container {
-      max-width: 1150px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
+h1{
+  text-align:center;
+  font-size:80px;
+  background: linear-gradient(to bottom,white,hotpink);
+  -webkit-background-clip:text;
+  color:transparent;
+  margin:0;
+}
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 40px 20px;
-      position: relative;
-      overflow: hidden;
-    }
+h2{
+  text-align:center;
+  color:#ff69b4;
+  margin-bottom:30px;
+}
 
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(65px);
-      animation: float 10s ease-in-out infinite;
-      z-index: 0;
-    }
+.section{
+  padding:80px 20px;
+}
 
-    .orb.one {
-      width: 280px;
-      height: 280px;
-      background: rgba(255, 20, 147, 0.25);
-      top: 10%;
-      left: -60px;
-    }
+.card{
+  border:2px solid rgba(255,20,147,0.4);
+  border-radius:20px;
+  padding:20px;
+  margin:15px auto;
+  max-width:800px;
+  transition:.3s;
+}
 
-    .orb.two {
-      width: 240px;
-      height: 240px;
-      background: rgba(168, 85, 247, 0.22);
-      top: 20%;
-      right: -60px;
-      animation-delay: -3s;
-    }
+.card:hover{
+  border-color:hotpink;
+  box-shadow:0 0 30px hotpink;
+  transform:translateY(-5px);
+}
 
-    .orb.three {
-      width: 220px;
-      height: 220px;
-      background: rgba(255, 105, 180, 0.18);
-      bottom: 5%;
-      left: 35%;
-      animation-delay: -6s;
-    }
+.fleet-hero{
+  background: 
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.9)),
+    url('cars.png');
+  background-size:cover;
+  background-position:center;
+  border-radius:25px;
+  padding:60px 20px;
+  margin-bottom:30px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,20,147,0.3);
+  transition:.4s;
+}
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-25px); }
-    }
+.fleet-hero:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 70px hotpink;
+}
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-up {
-      animation: fadeUp 0.9s ease-out both;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 1000px;
-      width: 100%;
-    }
-
-    .time {
-      position: absolute;
-      top: 20px;
-      right: 25px;
-      font-size: 14px;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.8);
-      z-index: 3;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(54px, 12vw, 130px);
-      font-weight: 900;
-      line-height: 0.95;
-      background: linear-gradient(to bottom, #ffffff, #ff9ad5, #ff4db8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      font-size: clamp(28px, 5vw, 62px);
-      font-style: italic;
-      color: rgba(255,255,255,0.92);
-      margin-top: 10px;
-    }
-
-    .tagline {
-      margin-top: 18px;
-      color: #ff9ad5;
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .stats {
-      margin-top: 38px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .card {
-      border: 1px solid rgba(255, 90, 180, 0.28);
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      padding: 22px;
-      transition: 0.35s ease;
-      box-shadow: 0 0 0 rgba(255,20,147,0);
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 120, 210, 0.95);
-      box-shadow: 0 0 35px rgba(255,20,147,0.22);
-    }
-
-    .stat-value {
-      font-size: 42px;
-      font-weight: 900;
-      color: #ffe6f5;
-    }
-
-    .stat-label {
-      margin-top: 8px;
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-    }
-
-    .scroll-btn {
-      display: inline-block;
-      margin-top: 28px;
-      color: #ffd3ec;
-      text-decoration: none;
-      border: 1px solid rgba(255, 120, 210, 0.35);
-      padding: 12px 18px;
-      border-radius: 999px;
-      background: rgba(255, 20, 147, 0.08);
-      transition: 0.3s ease;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-
-    .scroll-btn:hover {
-      box-shadow: 0 0 24px rgba(255,20,147,0.22);
-      background: rgba(255, 20, 147, 0.14);
-    }
-
-    .section-title-top {
-      color: rgba(255, 179, 227, 0.85);
-      font-size: 12px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .section h2 {
-      margin: 0 0 14px;
-      font-size: clamp(36px, 6vw, 62px);
-      background: linear-gradient(to right, #fff, #ffd2ec, #ff66c4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .section p.lead {
-      color: rgba(255,255,255,0.68);
-      max-width: 760px;
-      margin-bottom: 30px;
-      line-height: 1.7;
-    }
-
-    .story-box p {
-      line-height: 1.85;
-      color: rgba(255,255,255,0.82);
-      margin: 0 0 18px;
-    }
-
-    .list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .row .left {
-      color: rgba(255, 205, 235, 0.75);
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-    }
-
-    .row .right {
-      font-size: 24px;
-      font-weight: 700;
-      color: #fff1fa;
-    }
-
-    .rank-card p {
-      margin: 12px 0 0;
-      color: rgba(255,255,255,0.78);
-      line-height: 1.8;
-    }
-
-    .rank-card strong {
-      color: #ffd8ef;
-    }
-
-    .fleet-hero {
-      position: relative;
-      overflow: hidden;
-      border-radius: 28px;
-      min-height: 420px;
-      display: flex;
-      align-items: end;
-      padding: 30px;
-      margin-bottom: 22px;
-      border: 1px solid rgba(255, 120, 210, 0.28);
-      box-shadow: 0 0 45px rgba(255, 20, 147, 0.14);
-      background:
-        linear-gradient(to top, rgba(5, 0, 10, 0.92) 0%, rgba(5, 0, 10, 0.65) 35%, rgba(5, 0, 10, 0.18) 100%),
-        url('./cars.png') center/cover no-repeat;
-    }
-
-    .fleet-hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(135deg, rgba(255, 20, 147, 0.14), transparent 40%, rgba(168, 85, 247, 0.12));
-      pointer-events: none;
-    }
-
-    .fleet-hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
-    }
-
-    .fleet-hero-title {
-      font-size: clamp(32px, 5vw, 58px);
-      font-weight: 900;
-      line-height: 1.05;
-      margin: 0;
-      color: #fff5fb;
-    }
-
-    .fleet-hero-text {
-      margin-top: 14px;
-      color: rgba(255,255,255,0.78);
-      line-height: 1.75;
-      font-size: 17px;
-    }
-
-    .fleet-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .fleet-number {
-      font-size: 70px;
-      font-weight: 900;
-      color: rgba(255,255,255,0.06);
-      position: absolute;
-      top: 8px;
-      right: 18px;
-    }
-
-    .fleet-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 140, 210, 0.35);
-      background: rgba(255, 20, 147, 0.1);
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #ffd6ed;
-    }
-
-    .fleet-card h3 {
-      margin: 18px 0 10px;
-      font-size: 30px;
-      color: #fff4fb;
-    }
-
-    .fleet-card p {
-      color: rgba(255,255,255,0.62);
-      line-height: 1.7;
-    }
-
-    .rule-number {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255, 120, 210, 0.35);
-      background: rgba(255,20,147,0.08);
-      color: #ffd7ee;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .rule-text {
-      font-size: 24px;
-      color: rgba(255,255,255,0.88);
-      font-weight: 600;
-    }
-
-    footer {
-      border-top: 1px solid rgba(255, 105, 180, 0.15);
-      padding: 40px 20px;
-      background: linear-gradient(180deg, #090109 0%, #130213 100%);
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      gap: 25px;
-      flex-wrap: wrap;
-      align-items: end;
-    }
-
-    .footer-brand {
-      font-size: 42px;
-      font-weight: 900;
-      background: linear-gradient(to right, #fff, #ffd2ec, #ff66c4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .footer-sub {
-      margin-top: 8px;
-      font-size: 20px;
-      font-style: italic;
-      color: rgba(255,255,255,0.88);
-    }
-
-    .footer-right {
-      text-align: right;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.9;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 13px;
-    }
-
-    @media (max-width: 900px) {
-      .stats,
-      .fleet-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .row .right,
-      .rule-text {
-        font-size: 20px;
-      }
-
-      .fleet-hero {
-        min-height: 320px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .stats,
-      .fleet-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-right {
-        text-align: left;
-      }
-
-      .footer-brand {
-        font-size: 34px;
-      }
-    }
-  </style>
+footer{
+  text-align:center;
+  padding:40px 20px;
+  border-top:1px solid rgba(255,20,147,0.3);
+}
+</style>
 </head>
+
 <body>
-  <div class="time" id="clock">00:00:00</div>
 
-  <section class="hero">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
+<img src="mayhem-logo.png" class="logo">
+<h1>MAYHEM</h1>
+<h2>Familie</h2>
 
-    <div class="hero-inner fade-up">
-      <div style="font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:rgba(255,200,230,0.75); margin-bottom:18px;">
-        Est. 2024 | Family
-      </div>
+<div class="section">
+<h2>Geschichte</h2>
+<div class="card">
+Mayhem ist nicht aus Langeweile entstanden. Am Anfang waren es ein paar Menschen, die alles verloren hatten.
+Nach einem Casino-Überfall wurde klar, dass aus Chaos Struktur entstehen muss.
+Heute steht Mayhem für Loyalität, Präsenz und Respekt.
+</div>
+</div>
 
-      <h1>MAYHEM</h1>
-      <div class="subtitle">Familie</div>
-      <div class="tagline">Loyalität. Respekt. Macht.</div>
+<div class="section">
+<h2>Hierarchie</h2>
 
-      <div class="stats">
-        <div class="card">
-          <div class="stat-value">10</div>
-          <div class="stat-label">Ränge</div>
-        </div>
-        <div class="card">
-          <div class="stat-value">10+</div>
-          <div class="stat-label">Fahrzeuge</div>
-        </div>
-        <div class="card">
-          <div class="stat-value">14-20</div>
-          <div class="stat-label">Mitglieder</div>
-        </div>
-        <div class="card">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">Loyalität</div>
-        </div>
-      </div>
+<div class="card">President of MAYHEM – Alles</div>
+<div class="card">High Councillor – Alles</div>
+<div class="card">Executor – Organisation & Events</div>
+<div class="card">Mentor – Ausbildung & Mitglieder</div>
+<div class="card">Turf Leader – Calls & Einfluss</div>
+<div class="card">Buisnessman – Waffen & Geld</div>
+<div class="card">Turfer – Events</div>
+<div class="card">Mayhem – Vollmitglied</div>
+<div class="card">Warrior – Neuling</div>
+<div class="card">Putzfrau – Strafrang</div>
 
-      <a class="scroll-btn" href="#geschichte">Scroll ↓</a>
-    </div>
-  </section>
+</div>
 
-  <section class="section" id="geschichte" style="background:
-    radial-gradient(circle at top left, rgba(255, 0, 128, 0.14), transparent 24%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 48px),
-    linear-gradient(180deg, #0b0210 0%, #120317 100%);">
-    <div class="container">
-      <div class="section-title-top">01</div>
-      <h2>Geschichte</h2>
-      <p class="lead">Wie alles angefangen hat.</p>
+<div class="section">
+<h2>Fuhrpark</h2>
 
-      <div class="card story-box">
-        <p>Mayhem ist nicht aus Langeweile entstanden. Am Anfang waren es ein paar Menschen, die zu oft am falschen Ort waren, zu oft alles verloren haben und irgendwann gemerkt haben, dass sie so nicht weitermachen wollen.</p>
-        <p>Die heutigen Leader kannten Druck, Schulden und den Blick von Leuten, die dich schon abgeschrieben haben. Aus Frust, Wut und Ehrgeiz wurde irgendwann ein Plan. Kein sauberer Plan, aber einer, der alles verändert hat.</p>
-        <p>Nach einem Casino-Überfall war klar, dass aus einzelnen Menschen eine feste Struktur werden muss. Nicht jeder hatte das Zeug dazu, deswegen sind nur die geblieben, die Loyalität wirklich verstanden haben.</p>
-        <p>Heute steht Mayhem für Präsenz, Ordnung und Respekt. Wer den Namen trägt, repräsentiert mehr als nur eine Gruppe — er repräsentiert eine Familie, die aus Chaos entstanden ist und daraus Stärke gemacht hat.</p>
-      </div>
-    </div>
-  </section>
+<div class="fleet-hero">
+<h2>Unsere Fahrzeuge</h2>
+<p>Luxus, Präsenz und Style</p>
+</div>
 
-  <section class="section" style="
-    background:
-    radial-gradient(circle at right top, rgba(255, 20, 147, 0.12), transparent 25%),
-    linear-gradient(180deg, rgba(255,255,255,0.02), transparent 60%),
-    linear-gradient(135deg, #09020d 0%, #130113 100%);
-  ">
-    <div class="container">
-      <div class="section-title-top">02</div>
-      <h2>Hierarchie</h2>
-      <p class="lead">Struktur und Aufgabenbereiche der Familie.</p>
+<div class="card">2x Bugatti Divo</div>
+<div class="card">1x Chiron Super Sport</div>
+<div class="card">1x Q8</div>
+<div class="card">Viele Sultan's</div>
 
-      <div class="list">
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 9</div>
-            <div class="right">President of MAYHEM</div>
-          </div>
-          <p><strong>Ist der Familien Besitzer</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>Alles</p>
-        </div>
+</div>
 
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 9</div>
-            <div class="right">High Councillor</div>
-          </div>
-          <p><strong>Sind die Vize der Familie</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>Alles</p>
-        </div>
+<footer>
+Leader: Paul Armani<br>
+1. Vize: Merlin Daumendrücker ID 83124<br>
+2. Vize: Kiro Sencho ID 140238<br>
+DC: paul.999
+</footer>
 
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 8</div>
-            <div class="right">Executor</div>
-          </div>
-          <p><strong>Sind zur Unterstützung der Leader da, ist Teil der Familienführung.</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>
-            Organisation der Familie<br>
-            Anwesenheit bei Events<br>
-            Teilnahme der Führungsbesprechungen
-          </p>
-        </div>
-
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 7</div>
-            <div class="right">Mentor</div>
-          </div>
-          <p><strong>Ist Teil der Familienführung, kümmert sich um die Ausbildung der Mitglieder.</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>
-            Aufnahme der Neulinge<br>
-            Vergrößern der Familie<br>
-            Erster Ansprechpartner der Mitglieder
-          </p>
-        </div>
-
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 6</div>
-            <div class="right">Turf Leader</div>
-          </div>
-          <p><strong>Ist Main Caller bei Events und für die Turfs zuständig.</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>
-            Events anfahren<br>
-            Callen<br>
-            Einflussphären<br>
-            kümmern um Turfer
-          </p>
-        </div>
-
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 5</div>
-            <div class="right">Buisnessman</div>
-          </div>
-          <p><strong>Ist für das verteilen der Munition da.</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>
-            Waffen &amp; Munition verteilen<br>
-            Einsammeln der Unternehmen<br>
-            Verwaltung des Geldes
-          </p>
-        </div>
-
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 4</div>
-            <div class="right">Turfer</div>
-          </div>
-          <p><strong>Ist für die Events zuständig.</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>
-            Events anfahren (pflicht)<br>
-            Einfluss verteidigen und angreifen
-          </p>
-        </div>
-
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 3</div>
-            <div class="right">Mayhem</div>
-          </div>
-          <p><strong>Ist ein vollständiges Mitglied der Familie.</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>
-            Anfahren der Events<br>
-            Pflicht Events<br>
-            Teilnahme der Familienaktivitäten
-          </p>
-        </div>
-
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 2</div>
-            <div class="right">Warrior</div>
-          </div>
-          <p><strong>Ist ein neues unerfahrenes Mitglied der Familie.</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>
-            kennenlernen der Familie
-          </p>
-        </div>
-
-        <div class="card rank-card">
-          <div class="row">
-            <div class="left">Rang 1</div>
-            <div class="right">Putzfrau</div>
-          </div>
-          <p><strong>Ist der Strafrang</strong></p>
-          <p><strong>Aufgabenbereich:</strong><br>
-            Sanktion bezahlen
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" style="
-    background:
-    radial-gradient(circle at 12% 50%, rgba(255, 0, 170, 0.12), transparent 22%),
-    radial-gradient(circle at 88% 25%, rgba(210, 80, 255, 0.13), transparent 18%),
-    linear-gradient(180deg, #07020a 0%, #120111 100%);
-  ">
-    <div class="container">
-      <div class="section-title-top">03</div>
-      <h2>Fuhrpark</h2>
-      <p class="lead">Unsere Fahrzeuge und unser Auftreten auf der Straße.</p>
-
-      <div class="fleet-hero">
-        <div class="fleet-hero-content">
-          <h3 class="fleet-hero-title">Luxus. Präsenz. Mayhem.</h3>
-          <p class="fleet-hero-text">
-            Unser Fuhrpark steht nicht nur für Geschwindigkeit, sondern auch für Wiedererkennung.
-            Weiße Karossen, pinke Akzente und ein Auftritt, den man direkt mit Mayhem verbindet.
-          </p>
-        </div>
-      </div>
-
-      <div class="fleet-grid">
-        <div class="card fleet-card">
-          <div class="fleet-number">01</div>
-          <div class="badge">2x</div>
-          <h3>Bugatti Divo</h3>
-          <p>Exklusiver Hypercar-Status für besondere Auftritte.</p>
-        </div>
-        <div class="card fleet-card">
-          <div class="fleet-number">02</div>
-          <div class="badge">1x</div>
-          <h3>Bugatti Chiron Super Sport</h3>
-          <p>High-End Prestige.</p>
-        </div>
-        <div class="card fleet-card">
-          <div class="fleet-number">03</div>
-          <div class="badge">1x</div>
-          <h3>WF-Auto Q8</h3>
-          <p>Luxus-SUV für Convoys.</p>
-        </div>
-        <div class="card fleet-card">
-          <div class="fleet-number">04</div>
-          <div class="badge">Viele</div>
-          <h3>Sultan’s</h3>
-          <p>Alltag &amp; Action.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" style="
-    background:
-    radial-gradient(circle at center, rgba(255, 70, 180, 0.10), transparent 18%),
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 46px),
-    linear-gradient(180deg, #0a020d 0%, #15031a 100%);
-  ">
-    <div class="container">
-      <div class="section-title-top">04</div>
-      <h2>Regeln</h2>
-      <p class="lead">Die Grundsätze der Familie.</p>
-
-      <div class="list">
-        <div class="card row"><div class="rule-number">01</div><div class="rule-text">Loyalität vor allem.</div></div>
-        <div class="card row"><div class="rule-number">02</div><div class="rule-text">Respekt intern und außen.</div></div>
-        <div class="card row"><div class="rule-number">03</div><div class="rule-text">Keine unnötigen Moves ohne Absprache.</div></div>
-        <div class="card row"><div class="rule-number">04</div><div class="rule-text">Aktivität und Präsenz werden erwartet.</div></div>
-        <div class="card row"><div class="rule-number">05</div><div class="rule-text">Der Name Mayhem wird geschützt.</div></div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-inner">
-      <div>
-        <div class="footer-brand">MAYHEM</div>
-        <div class="footer-sub">Familie</div>
-      </div>
-
-      <div class="footer-right">
-        <div>Leader: <span style="color:#fff;">Paul Armani</span></div>
-        <div>1. Vize: <span style="color:#fff;">Merlin Daumendrücker ID 83124</span></div>
-        <div>2. Vize: <span style="color:#fff;">Kiro Sencho ID 140238</span></div>
-        <div>DC: <span style="color:#fff;">paul.999</span></div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    function updateClock() {
-      const now = new Date();
-      document.getElementById("clock").textContent = now.toLocaleTimeString("de-DE", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      });
-    }
-
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
 </body>
 </html>
+
