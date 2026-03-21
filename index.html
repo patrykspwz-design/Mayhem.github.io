@@ -7,14 +7,33 @@
 
 <style>
 body{margin:0;font-family:Arial;background:#0a0210;color:white}
-.section{padding:80px 20px}
+.section{padding:80px 20px;animation:fadeUp 1s ease}
 .container{max-width:1100px;margin:auto}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:20px;margin:10px 0;border:1px solid rgba(255,0,150,0.2)}
+.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:20px;margin:10px 0;border:1px solid rgba(255,0,150,0.2);transition:0.3s}
+.card:hover{transform:translateY(-5px);box-shadow:0 0 25px hotpink}
 h1{font-size:70px;text-align:center;color:#ff4db8}
 h2{color:#ff66c4}
 img{max-width:100%;border-radius:20px}
 .stats{display:flex;gap:15px;justify-content:center;flex-wrap:wrap}
-.stat{padding:20px;background:rgba(255,255,255,0.05);border-radius:20px}
+.stat{padding:20px;background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(255,0,150,0.2)}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.logo{
+width:200px;
+display:block;
+margin:auto;
+filter:drop-shadow(0 0 20px hotpink);
+animation:float 4s infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+}
 </style>
 </head>
 
@@ -23,7 +42,7 @@ img{max-width:100%;border-radius:20px}
 <!-- HERO -->
 <section class="section">
 <div class="container" style="text-align:center">
-<img src="mayhem-logo.png" style="width:200px">
+<img src="mayhem-logo.png" class="logo">
 <h1>MAYHEM</h1>
 <p>Familie</p>
 <p style="color:#ff9ad5">Loyalität. Respekt. Macht.</p>
@@ -33,6 +52,20 @@ img{max-width:100%;border-radius:20px}
 <div class="stat">10+ Fahrzeuge</div>
 <div class="stat">25+ Aktive Mitglieder</div>
 <div class="stat">100% Loyalität</div>
+</div>
+</div>
+</section>
+
+<!-- ÜBER MICH -->
+<section class="section">
+<div class="container">
+<h2>Über mich</h2>
+<div class="card">
+OOC Name: Paul<br>
+Alter: 18<br>
+Visum: 45<br>
+Orga: Ballas (Turfer)<br>
+Aktivität: mind. 5 Std. täglich
 </div>
 </div>
 </section>
@@ -59,15 +92,13 @@ Aus einzelnen Menschen wurde eine Familie mit Struktur und Macht.
 <div class="container">
 <h2>Hierarchie</h2>
 
-<div class="card">Rang 9 - President</div>
-<div class="card">Rang 9 - High Councillor</div>
+<div class="card">Rang 10 - President</div>
+<div class="card">Rang 9 - Vize of Mayhem</div>
 <div class="card">Rang 8 - Executor</div>
 <div class="card">Rang 7 - Mentor</div>
 <div class="card">Rang 6 - Turf Leader</div>
-
 <div class="card">Rang 5 - Turfer</div>
 <div class="card">Rang 4 - Buisnessman</div>
-
 <div class="card">Rang 3 - Mayhem</div>
 <div class="card">Rang 2 - Warrior</div>
 <div class="card">Rang 1 - Putzfrau</div>
@@ -99,33 +130,11 @@ Aus einzelnen Menschen wurde eine Familie mit Struktur und Macht.
 <section class="section">
 <div class="container">
 <h2>Bewerbungsprozess</h2>
-
-<div class="card">
-Reisepass (Visum Stufe 4)<br>
-Alter<br>
-Warum Mayhem?<br>
-Erfahrung?<br>
-Ziele?
-</div>
-
-<div class="card">
-Zinken Fragen + Regeln<br>
-Shop Rob Regeln<br>
-Geiseln Regeln
-</div>
-
-<div class="card">
-Mehr als 3 Fehler = Ablehnung
-</div>
-
-<div class="card">
-Annahme → Discord + Einweisung
-</div>
-
-<div class="card">
-Ablehnung → 3-7 Tage
-</div>
-
+<div class="card">Reisepass, Alter, Motivation, Erfahrung, Ziele</div>
+<div class="card">Zinken + Regeln + Verhalten</div>
+<div class="card">Mehr als 3 Fehler = Ablehnung</div>
+<div class="card">Annahme → Discord + Einweisung</div>
+<div class="card">Ablehnung → 3-7 Tage</div>
 </div>
 </section>
 
@@ -135,7 +144,7 @@ Ablehnung → 3-7 Tage
 <h2>Impressum</h2>
 <p>Leader: Paul Armani</p>
 <p>1. Vize: Merlin Daumendrücker (ID 83124)</p>
-<p>2. Vize: Kiro Sencho (ID 140238)</p>
+<p>2. Vize: Mercio Grantig (ID 126082)</p>
 </div>
 </section>
 
